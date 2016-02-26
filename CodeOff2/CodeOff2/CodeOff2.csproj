@@ -46,6 +46,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="code-off-3.in">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="code_off-2.in">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

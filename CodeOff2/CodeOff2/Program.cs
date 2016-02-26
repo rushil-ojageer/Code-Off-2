@@ -19,6 +19,8 @@ namespace CodeOff2
                 {
                     file.WriteLine(line);
                 }
+
+                file.Close();
             }
         }
         public static List<string> ReadFile(string filename)
@@ -37,7 +39,7 @@ namespace CodeOff2
         }
         public static ParsedInput Parse(string filename)
         {
-            var lines = ReadFile("code_off-2.in");
+            var lines = ReadFile(filename);
 
             var liquidTypes = new List<LiquidType>();
             for (var i = 1; i < Int32.Parse(lines[0]) + 1; i++)
@@ -105,11 +107,11 @@ namespace CodeOff2
             }
         }
 
-        public static void GenerateOutput(ParsedInput parsedInput)
+        public static void GenerateOutput(ParsedInput parsedInput, int totalLitres)
         {
             var lines = new List<string>();
-            var remainingLiquid = parsedInput.LiquidTypes.Sum(x => x.Litres) -
-                                  parsedInput.Jars.Sum(x => x.CurrentLitres);
+
+            var remainingLiquid = totalLitres - parsedInput.Jars.Sum(x => x.CurrentLitres);
 
             lines.Add(remainingLiquid.ToString());
 
@@ -133,9 +135,12 @@ namespace CodeOff2
 
         public static void Main(string[] args)
         {
-            var parsedInput = Parse("code_off-2.in");
+            var parsedInput = Parse("code-off-2.in");
+
+            var totalLitres = parsedInput.LiquidTypes.Sum(x => x.Litres);
+
             Optimize(parsedInput);
-            GenerateOutput(parsedInput);
+            GenerateOutput(parsedInput, totalLitres);
             Console.ReadLine();
         }
 
