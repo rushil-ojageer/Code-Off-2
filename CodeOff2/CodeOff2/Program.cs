@@ -135,7 +135,7 @@ namespace CodeOff2
 
         public static void Main(string[] args)
         {
-            var parsedInput = Parse("code-off-2.in");
+            var parsedInput = Parse("code_off-2.in");
 
             var totalLitres = parsedInput.LiquidTypes.Sum(x => x.Litres);
 
