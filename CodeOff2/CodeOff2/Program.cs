@@ -13,7 +13,7 @@ namespace CodeOff2
     {
         public static void WriteFile(List<string> lines)
         {
-            using (var file = new StreamWriter(@"..\..\..\..\output.txt"))
+            using (var file = new StreamWriter(@"..\..\..\..\code_off-2.out"))
             {
                 foreach (var line in lines)
                 {
@@ -23,6 +23,7 @@ namespace CodeOff2
                 file.Close();
             }
         }
+
         public static List<string> ReadFile(string filename)
         {
             var lines = new List<string>();
@@ -37,6 +38,7 @@ namespace CodeOff2
             file.Close();
             return lines;
         }
+
         public static ParsedInput Parse(string filename)
         {
             var lines = ReadFile(filename);
@@ -86,14 +88,8 @@ namespace CodeOff2
             foreach (var liquid in input.LiquidTypes)
             {
                 var availableJars = input.Jars.Where(x => x.CurrentLitres < x.MaxLitres
-                    && x.LiquidTypes.Count == 1 && x.LiquidTypes.Contains(liquid.Number)).ToList();
-
-                if (!availableJars.Any())
-                {
-                    availableJars = input.Jars.Where(x => x.CurrentLitres < x.MaxLitres
                         && x.LiquidTypes.Contains(liquid.Number)
                         && (x.CurrentLiquidType == null || x.CurrentLiquidType == liquid.Number)).ToList();
-                }
 
                 foreach (var availableJar in availableJars)
                 {
@@ -130,7 +126,6 @@ namespace CodeOff2
                 }
                 else
                 {
-
                     lines.Add(jar.LiquidTypes.First()+",0");
                 }
             }
