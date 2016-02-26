@@ -47,7 +47,6 @@ namespace CodeOff2
                 var liquidType = new LiquidType();
                 liquidType.Number = i - 1;
                 liquidType.Litres = Int32.Parse(lines[i]);
-
                 liquidTypes.Add(liquidType);
             }
 
@@ -86,9 +85,15 @@ namespace CodeOff2
         {
             foreach (var liquid in input.LiquidTypes)
             {
-                var availableJars = input.Jars.Where(x => x.CurrentLitres < x.MaxLitres 
-                    && x.LiquidTypes.Contains(liquid.Number)
-                    && (x.CurrentLiquidType == null || x.CurrentLiquidType == liquid.Number));
+                var availableJars = input.Jars.Where(x => x.CurrentLitres < x.MaxLitres
+                    && x.LiquidTypes.Count == 1 && x.LiquidTypes.Contains(liquid.Number)).ToList();
+
+                if (!availableJars.Any())
+                {
+                    availableJars = input.Jars.Where(x => x.CurrentLitres < x.MaxLitres
+                        && x.LiquidTypes.Contains(liquid.Number)
+                        && (x.CurrentLiquidType == null || x.CurrentLiquidType == liquid.Number)).ToList();
+                }
 
                 foreach (var availableJar in availableJars)
                 {
